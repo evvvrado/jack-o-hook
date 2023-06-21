@@ -1,0 +1,26 @@
+{
+	"name": "jack-o-hook",
+	"version": "1.0.0",
+	"description": "Spooky hooks collection.",
+	"type": "module",
+	"repository": "",
+	"devDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"exports": {
+		"default": "./index.js"
+	},
+	"engines": {
+		"node": ">=16"
+	},
+	"files": [
+		"index.js"
+	],
+	"peerDependencies": {
+		"react": ">=18.0.0",
+		"react-dom": ">=18.0.0"
+	},
+	"author": "Everaldo Júnior",
+	"license": "MIT"
+}
