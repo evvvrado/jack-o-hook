@@ -3,19 +3,19 @@
 	"version": "1.0.0",
 	"description": "Spooky hooks collection.",
 	"type": "module",
-	"repository": "",
+	"repository": "evvvrado/jack-o-hook",
 	"devDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
 	"exports": {
-		"default": "./index.js"
+		"default": "./index.ts"
 	},
 	"engines": {
 		"node": ">=16"
 	},
 	"files": [
-		"index.js"
+		"index.ts"
 	],
 	"peerDependencies": {
 		"react": ">=18.0.0",
