@@ -1,5 +1,16 @@
-### 🪝 JACK-O-HOOK
+# Jack-o'-hook
 
-Spooky hooks collection.
+A spooky collection of react hooks.
 
-> @evvvrado
+### Usage
+To start using the library, install it in your project:
+
+```
+npm i jack-o-hook
+yarn add jack-o-hook
+pnpm add jack-o-hook
+```
+
+### Hooks
+
+Comming soon...
