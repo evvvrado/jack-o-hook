@@ -1,16 +1,23 @@
-# Jack-o'-hook
+<div align="center">
 
-A spooky collection of react hooks.
+<p align="center">
+  <img src="cover.png" width="1200">
+</p>
 
-### Usage
-To start using the library, install it in your project:
+# Jack-o'-Hook
 
-```
-npm i jack-o-hook
-yarn add jack-o-hook
-pnpm add jack-o-hook
-```
+[![react](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white)](#) [![license](https://img.shields.io/badge/license-MIT-blue)](#)
 
-### Hooks
+A spooky collection of react hooks. Compatible with React v18.0.0+.
 
-Comming soon...
+</div>
+
+## 🪝 Hooks
+
+|                     🖱️useMouse                      | 📋useCopyboard                        | 📺useWindowWidth                 | ⚙️ Wip                 |
+| :-------------------------------------------------: | ------------------------------------- | -------------------------------- | ---------------------- |
+| Tracks mouse cursor in component, and gives coords. | Enables copying text to the clipboard | Returns the user's screen width. | New hooks coming soon. |
+
+## ⚖️ License
+
+Jack-o'-Hook is licensed under the MIT. For more details, see the [LICENSE](./LICENSE) file.
