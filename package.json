@@ -9,14 +9,16 @@
 		"react-dom": "^18.2.0"
 	},
 	"exports": {
-		"default": "./index.ts"
+		"default": "./index.js"
 	},
 	"engines": {
 		"node": ">=16"
 	},
 	"files": [
-		"index.ts"
+		"index.js",
+		"index.d.ts"
 	],
+	"types": "index.d.ts",
 	"peerDependencies": {
 		"react": ">=18.0.0",
 		"react-dom": ">=18.0.0"

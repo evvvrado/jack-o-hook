@@ -4,20 +4,20 @@ declare module "jack-o-hook" {
         y: number;
     }
 
-    export interface CopyboardHook {
-        handleCopy: (content: string, callback: () => void) => void;
+    interface CopyboardHook {
+        handleCopy: (content: string, callback: CopyboardCallback) => void;
     }
-
+    
     export interface WindowWidthHook {
         (): number;
     }
 
-    export interface GoToHook {
-        (id: string): void;
-    }
-
     export interface LockScrollHook {
         (): void;
+    }
+
+    export interface GoToHook {
+        (id: string): void;
     }
 
     export function useCopyboard(): CopyboardHook;

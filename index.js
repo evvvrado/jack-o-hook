@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useCallback, useState, useEffect } from "react"
+import * as React from "react"
 
 function getEnvironment() {
 	const isDOM =
@@ -8,16 +8,29 @@ function getEnvironment() {
 }
 
 const useCopyboard = () => {
-	const handleCopy = (content, callback) => {
+	const handleCopy = React.useCallback((content, callback) => {
 		navigator.clipboard.writeText(content)
 		callback()
-	}
+	})
 
 	return { handleCopy }
 }
 
+
+const useGoTo = (id) => {
+	React.useEffect(() => {
+		const elementID = document.querySelector(`#${id}`)
+		if (!elementID) return
+
+		const elementBounds = elementID?.getBoundingClientRect()
+
+		return window.scrollTo(0, (window.scrollY + elementBounds.y - 150) || 0)
+	}, []);
+}
+
+
 const useMouse = () => {
-	const [mousePos, setMousePos] = useState({
+	const [mousePos, setMousePos] = React.useState({
 		x: 0,
 		y: 0,
 	})
@@ -35,32 +48,23 @@ const useMouse = () => {
 }
 
 const useWindowWidth = () => {
-	const [width, setWidth] = useState(0)
+	const [width, setWidth] = React.useState(0)
 	const handleResize = () => setWidth(window.innerWidth)
 
-	useEffect(() => {
+	React.useEffect(() => {
 		handleResize()
 	}, [])
 
-	useEffect(() => {
+	React.useEffect(() => {
 		window.addEventListener("resize", handleResize)
 		return () => window.removeEventListener("resize", handleResize)
 	}, [width])
+
 	return width
 }
 
-const useGoTo = (id) => {
-	const elementID = document.querySelector(`#${id}`)
-	if (!elementID) return
-
-	const elementBounds = elementID?.getBoundingClientRect()
-
-	return window.scrollTo(0, (window.scrollY + elementBounds.y - 150) || 0)
-}
-
-
 const useLockScroll = () => {
-	useEffect(() => {
+	React.useEffect(() => {
 		const initialStyle = window.getComputedStyle(document.body).overflow
 		document.body.style.overflow = "hidden"
 
@@ -70,4 +74,4 @@ const useLockScroll = () => {
 	}, [])
 }
 
-export { useCopyboard, useMouse, useWindowWidth, useGoTo, useFastForm, useLockScroll }
+export { useCopyboard, useMouse, useGoTo, useWindowWidth, useLockScroll }
