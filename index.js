@@ -10,12 +10,12 @@ const useCopyboard = () => {
 };
 
 const useScroll = () => {
-	const goToId = React.useCallback((id) => {
+	const goToId = React.useCallback((id, distance = 150) => {
 		const elementID = document.querySelector(`#${id}`);
 		if (!elementID) return;
 
 		const elementBounds = elementID?.getBoundingClientRect();
-		return window.scrollTo(0, window.scrollY + elementBounds.y - 150 || 0);
+		return window.scrollTo(0, window.scrollY + elementBounds.y - distance || 0);
 	}, []);
 
 	const goToTop = React.useCallback(() => {
@@ -114,7 +114,7 @@ const useIntersectionObserver = (ref, options) => {
 		}
 
 		return () => {
-			observer.unobserve(ref.current);
+			if (observer) observer.unobserve(ref.current);
 		};
 	}, [ref]);
 

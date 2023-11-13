@@ -8,7 +8,7 @@ declare module "jack-o-hook" {
 	};
 
 	export function useScroll(): {
-		goToId: (id: string) => void;
+		goToId: (id: string, distance?: number) => void;
 		goToTop: () => void;
 	};
 
