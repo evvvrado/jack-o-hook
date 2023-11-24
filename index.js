@@ -66,7 +66,7 @@ const useMouse = () => {
 		setMousePos({ x: event.clientX, y: event.clientY });
 	};
 
-	useEffect(() => {
+	React.useEffect(() => {
 		window.addEventListener("mousemove", handleMouseMove);
 		return () => window.removeEventListener("mousemove", handleMouseMove);
 	}, [mousePos]);
@@ -109,14 +109,18 @@ const useIntersectionObserver = (ref, options) => {
 			setIsIntersecting(entry.isIntersecting);
 		}, options);
 
-		if (ref.current) {
-			observer.observe(ref.current);
-		}
+		const currentRef = ref.current;
 
-		return () => {
-			if (observer) observer.unobserve(ref.current);
-		};
-	}, [ref]);
+		if (currentRef) {
+			observer.observe(currentRef);
+
+			return () => {
+				if (currentRef) {
+					observer.unobserve(currentRef);
+				}
+			};
+		}
+	}, [ref, options]);
 
 	return isIntersecting;
 };
