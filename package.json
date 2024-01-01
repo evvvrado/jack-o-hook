@@ -1,6 +1,6 @@
 {
 	"name": "jack-o-hook",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Spooky hooks collection.",
 	"type": "module",
 	"repository": "evvvrado/jack-o-hook",

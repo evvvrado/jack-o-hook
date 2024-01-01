@@ -19,7 +19,10 @@ declare module "jack-o-hook" {
 		y: number;
 	};
 
-	export function useWindowWidth(): number;
+	export function useWindowDimensions(): {
+		width: number;
+		height: number;
+	};
 
 	export function useLockScroll(): void;
 

@@ -74,21 +74,28 @@ const useMouse = () => {
 	return mousePos;
 };
 
-const useWindowWidth = () => {
-	const [width, setWidth] = React.useState(0);
-	const handleResize = () => setWidth(window.innerWidth);
+function getWindowDimensions() {
+	const { innerWidth: width, innerHeight: height } = window;
+	return {
+		width,
+		height,
+	};
+}
+
+function useWindowDimensions() {
+	const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
 
 	React.useEffect(() => {
-		handleResize();
-	}, []);
+		function handleResize() {
+			setWindowDimensions(getWindowDimensions());
+		}
 
-	React.useEffect(() => {
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
-	}, [width]);
+	}, []);
 
-	return width;
-};
+	return windowDimensions;
+}
 
 const useLockScroll = () => {
 	React.useEffect(() => {
@@ -130,7 +137,7 @@ export {
 	useMouse,
 	useScroll,
 	useScrollPosition,
-	useWindowWidth,
+	useWindowDimensions,
 	useLockScroll,
 	useIntersectionObserver,
 };
