@@ -82,6 +82,22 @@ function getWindowDimensions() {
 	};
 }
 
+const useWindowWidth = () => {
+	const [width, setWidth] = React.useState(0);
+	const handleResize = () => setWidth(window.innerWidth);
+
+	React.useEffect(() => {
+		handleResize();
+	}, []);
+
+	React.useEffect(() => {
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, [width]);
+
+	return width;
+};
+
 function useWindowDimensions() {
 	const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
 
@@ -137,6 +153,7 @@ export {
 	useMouse,
 	useScroll,
 	useScrollPosition,
+	useWindowWidth,
 	useWindowDimensions,
 	useLockScroll,
 	useIntersectionObserver,
