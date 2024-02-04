@@ -75,7 +75,11 @@ const useMouse = () => {
 };
 
 function getWindowDimensions() {
-	const { innerWidth: width, innerHeight: height } = window;
+	const { innerWidth: width, innerHeight: height } = window || {
+		innerWidth: 0,
+		innerHeight: 0,
+	};
+
 	return {
 		width,
 		height,
@@ -84,7 +88,7 @@ function getWindowDimensions() {
 
 const useWindowWidth = () => {
 	const [width, setWidth] = React.useState(0);
-	const handleResize = () => setWidth(window.innerWidth);
+	const handleResize = () => setWidth(window ? window.innerWidth : 0);
 
 	React.useEffect(() => {
 		handleResize();
