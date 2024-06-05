@@ -1,35 +1,40 @@
-import * as React from "react";
-
 declare module "jack-o-hook" {
-	type CopyboardHandler = (content: string, callback: () => void) => void;
+	import * as React from "react";
 
-	export function useCopyboard(): {
-		handleCopy: CopyboardHandler;
-	};
+	type HandleCopy = (content: string, callback: () => void) => void;
+	export function useCopyboard(): { handleCopy: HandleCopy };
 
-	export function useScroll(): {
-		goToId: (id: string, distance?: number) => void;
-		goToTop: () => void;
-	};
+	type GoToId = (id: string, distance?: number) => void;
+	type GoToTop = () => void;
+	export function useScroll(): { goToId: GoToId; goToTop: GoToTop };
 
 	export function useScrollPosition(): [boolean, boolean];
 
-	export function useMouse(): {
-		x: number;
-		y: number;
-	};
+	type MousePos = { x: number; y: number };
+	export function useMouse(): MousePos;
 
 	export function useWindowWidth(): number;
 
-	export function useWindowDimensions(): {
-		width: number;
-		height: number;
+	export function useHasRendered(): boolean;
+
+	type UseToggleStateReturn = {
+		isOn: boolean;
+		handleToggle: () => void;
+		handleOn: () => void;
+		handleOff: () => void;
 	};
+	export function useToggleState(initialState?: boolean): UseToggleStateReturn;
+
+	type WindowDimensions = { width: number | undefined; height: number | undefined };
+	export function useWindowDimensions(debounceDelay?: number): WindowDimensions;
 
 	export function useLockScroll(): void;
 
-	export function useIntersectionObserver<T extends HTMLElement>(
-		ref: React.RefObject<T>,
-		options?: IntersectionObserverInit
+	type IntersectionObserverOptions = IntersectionObserverInit;
+	export function useIntersectionObserver(
+		ref: React.RefObject<Element>,
+		options: IntersectionObserverOptions
 	): boolean;
+
+	function debounce(func: Function, wait: number, immediate?: boolean): () => void;
 }

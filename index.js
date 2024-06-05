@@ -4,7 +4,7 @@ const useCopyboard = () => {
 	const handleCopy = React.useCallback((content, callback) => {
 		navigator.clipboard.writeText(content);
 		callback();
-	});
+	}, []);
 
 	return { handleCopy };
 };
@@ -34,7 +34,7 @@ const useScrollPosition = () => {
 
 		const scrollCheck = () => {
 			if (window) {
-				if (offSet > window.scrollY || window.scrollY == 0) {
+				if (offSet > window.scrollY || window.scrollY === 0) {
 					setIsOnTop(false);
 					setIsScrolling(true);
 				} else {
@@ -57,10 +57,7 @@ const useScrollPosition = () => {
 };
 
 const useMouse = () => {
-	const [mousePos, setMousePos] = React.useState({
-		x: 0,
-		y: 0,
-	});
+	const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
 
 	const handleMouseMove = (event) => {
 		setMousePos({ x: event.clientX, y: event.clientY });
@@ -69,22 +66,10 @@ const useMouse = () => {
 	React.useEffect(() => {
 		window.addEventListener("mousemove", handleMouseMove);
 		return () => window.removeEventListener("mousemove", handleMouseMove);
-	}, [mousePos]);
+	}, []);
 
 	return mousePos;
 };
-
-function getWindowDimensions() {
-	const { innerWidth: width, innerHeight: height } = window || {
-		innerWidth: 0,
-		innerHeight: 0,
-	};
-
-	return {
-		width,
-		height,
-	};
-}
 
 const useWindowWidth = () => {
 	const [width, setWidth] = React.useState(0);
@@ -97,25 +82,61 @@ const useWindowWidth = () => {
 	React.useEffect(() => {
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
-	}, [width]);
+	}, []);
 
 	return width;
 };
 
-function useWindowDimensions() {
-	const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+const useHasRendered = () => {
+	const [hasRendered, setHasRendered] = React.useState(false);
 
 	React.useEffect(() => {
-		function handleResize() {
-			setWindowDimensions(getWindowDimensions());
-		}
-
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
+		setHasRendered(true);
 	}, []);
 
-	return windowDimensions;
-}
+	return hasRendered;
+};
+
+const useToggleState = (initialState = false) => {
+	const [isOn, setIsOn] = React.useState(initialState);
+
+	const handleOn = React.useCallback(() => {
+		setIsOn(true);
+	}, []);
+
+	const handleOff = React.useCallback(() => {
+		setIsOn(false);
+	}, []);
+
+	const handleToggle = React.useCallback(() => {
+		setIsOn((p) => !p);
+	}, []);
+
+	return { isOn, handleToggle, handleOn, handleOff };
+};
+
+const useWindowDimensions = (debounceDelay = 500) => {
+	const [width, setWidth] = React.useState();
+	const [height, setHeight] = React.useState();
+
+	React.useEffect(() => {
+		const onWindowResize = debounce(
+			() => {
+				setWidth(Math.min(window.innerWidth, document.documentElement.clientWidth));
+				setHeight(Math.min(window.innerHeight, document.documentElement.clientHeight));
+			},
+			debounceDelay,
+			true
+		);
+
+		window.addEventListener("resize", onWindowResize, false);
+		onWindowResize();
+
+		return () => window.removeEventListener("resize", onWindowResize, false);
+	}, [debounceDelay]);
+
+	return { width, height };
+};
 
 const useLockScroll = () => {
 	React.useEffect(() => {
@@ -156,9 +177,11 @@ export {
 	useCopyboard,
 	useMouse,
 	useScroll,
+	useHasRendered,
 	useScrollPosition,
 	useWindowWidth,
 	useWindowDimensions,
 	useLockScroll,
 	useIntersectionObserver,
+	useToggleState,
 };
